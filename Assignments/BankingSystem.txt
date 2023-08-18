@@ -1,0 +1,107 @@
+abstract class BankAccount {
+
+    protected String accountNumber;
+    protected String accountHolderName;
+    protected double balance;
+
+    public BankAccount(String an,String ahn,double balance)
+    {
+        this.accountNumber=an;
+        this.accountHolderName=ahn;
+        this.balance=balance;
+    }
+    public void setAccountNumber(String an)
+    {
+        this.accountNumber=an;
+    }
+    public void setAccountHolderName(String name)
+    {
+        this.accountHolderName=name;
+    }
+    public void setBalance(double balance)
+    {
+        this.balance=balance;
+    }
+    public abstract String getAccountNumber();
+    public abstract String getAccountHolderName();
+    public abstract double getBalance();
+    public abstract void deposit(double amount);
+
+    public abstract void withdraw(double amount);
+
+}
+
+
+ class CheckingAccount extends BankAccount{
+    private double overdraftLimit;
+    private double overdraftedamount=0;
+
+    public CheckingAccount(String an,String ahn,double balance,double overdraftLimit)
+    {
+        super(an,ahn,balance);
+        this.overdraftLimit=overdraftLimit;
+    }
+
+    public String getAccountNumber()
+    {
+        return this.accountNumber;
+    }
+    public String getAccountHolderName()
+    {
+        return this.accountHolderName;
+    }
+    public double getBalance()
+    {
+        return this.balance;
+    }
+    public void deposit(double amount)
+    {
+        this.balance+=amount;
+    }
+    public void withdraw(double amount)
+    {
+        if(this.balance-amount<overdraftLimit)
+        {
+            System.out.println("you are excedding overdraft limit .. additional charges may charged");
+            this.overdraftedamount=this.overdraftedamount+amount-balance;
+            balance=0;
+            return;
+        }
+        balance=balance-amount;
+    }
+}
+
+class SavingAccount extends BankAccount {
+    private double intrestRate;
+
+    public SavingAccount(String an,String ahn,double balance,double intrestRate)
+    {
+        super(an,ahn,balance);
+        this.intrestRate=intrestRate;
+    }
+    public String getAccountNumber()
+    {
+        return this.accountNumber;
+    }
+    public String getAccountHolderName()
+    {
+        return this.accountHolderName;
+    }
+    public double getBalance()
+    {
+        return this.balance;
+    }
+
+    public void deposit(double amount)
+    {
+        this.balance+=amount;
+    }
+
+    public void  withdraw(double amount)
+    {
+        if(this.balance-amount>=5000)
+        {
+            this.balance=this.balance-amount;
+        }
+    }
+}

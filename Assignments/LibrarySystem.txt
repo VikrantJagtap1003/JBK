@@ -1,0 +1,142 @@
+ class LibraryItem {
+    private String title;
+    private int itemID;
+
+    public LibraryItem(String title,int itemID)
+    {
+        this.title=title;
+        this.itemID=itemID;
+    }
+    public void setTitle(String title)
+    {
+        this.title=title;
+    }
+    public void setItemId(int id)
+    {
+        this.itemID=id;
+    }
+    public String getTitle()
+    {
+        return this.title;
+    }
+    public int getItemId()
+    {
+        return this.itemID;
+    }
+
+    public void displayInfo()
+    {
+        System.out.println("Title="+this.title+" itemId="+this.itemID);
+    }
+
+}
+
+class Book extends LibraryItem{
+    private String author;
+
+    public Book(String title, int itemID,String author) {
+        super(title, itemID);
+        this.author=author;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public void displayInfo()
+    {
+        System.out.println("Title="+this.getTitle()+" itemId="+this.getItemId()+" Author="+this.author);
+    }
+}
+
+class DVD extends LibraryItem{
+    private double duration;
+
+    public DVD(String title,int id,double duration)
+    {
+        super(title,id);
+        this.duration=duration;
+    }
+    public void displayInfo()
+    {
+        System.out.println("Title="+this.getTitle()+" itemId="+this.getItemId()+" Author="+this.duration);
+    }
+}
+
+
+abstract class LibraryMember {
+    public LibraryMember(int memberId, String name) {
+        this.memberId = memberId;
+        this.name = name;
+    }
+    public LibraryMember()
+    {
+        super();
+    }
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    protected int memberId;
+    protected String name;
+
+    public abstract void borrowItem(LibraryItem item);
+
+}
+
+interface Reservable {
+    void reservable(LibraryItem item);
+}
+
+class FacultyMember extends LibraryMember implements Reservable {
+
+    public FacultyMember(int memberId, String name) {
+
+        this.memberId=memberId;
+        this.name=name;
+    }
+    public void reservable(LibraryItem item)
+    {
+        System.out.println(this.getName()+" reserved item with itemId "+item.getItemId());
+    }
+
+    public void borrowItem(LibraryItem item)
+    {
+        reservable(item);
+        String s = this.getName() + " is borrowing item='" + item.getTitle()+"'";
+        System.out.println(s);
+    }
+}
+
+class Main {
+
+    public static void main(String args[])
+    {
+        LibraryItem l1=new Book("Power of our subconcious mind",1,"Murphy");
+        l1.displayInfo();
+        LibraryItem l2=new DVD("Recording of calls",2,2.5);
+        l2.displayInfo();
+
+        FacultyMember f1=new FacultyMember(12,"Vikrant");
+        f1.borrowItem(l1);
+
+    }
+}
+
+
