@@ -30,9 +30,9 @@ public class Demo1Application {
 			System.out.println(id+" , "+name+" , "+city);
 		}
 		
-//		String query2="insert into user values(1,'Pune','Harshwardhan')";
-//		int val=st.executeUpdate(query2);
-//		System.out.print(val);
+		String query2="insert into user values(1,'Pune','Harshwardhan')";
+		int val=st.executeUpdate(query2);
+		System.out.print(val);
 		
 		String query3="update user set id=205 where id=204";
 		int val1=st.executeUpdate(query3);
